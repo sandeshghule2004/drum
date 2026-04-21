@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: Arial, sans-serif;
+        }
+
+        .drum-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .drum {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.1s;
+            user-select: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .drum:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .drum1 { background: #FF6B6B; }
+        .drum2 { background: #4ECDC4; }
+        .drum3 { background: #45B7D1; }
+        .drum4 { background: #FFA07A; }
+        .drum5 { background: #98D8C8; }
+        .drum6 { background: #F7DC6F; }
+        .drum7 { background: #BB8FCE; }
+        .drum8 { background: #85C1E2; }
+        .drum9 { background: #F8B88B; }
+
+        h1 {
+            position: absolute;
+            top: 30px;
+            color: white;
+            font-size: 28px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🥁 Drum App</h1>
+    <div class="drum-container">
+        <div class="drum drum1" data-key="1">1</div>
+        <div class="drum drum2" data-key="2">2</div>
+        <div class="drum drum3" data-key="3">3</div>
+        <div class="drum drum4" data-key="4">4</div>
+        <div class="drum drum5" data-key="5">5</div>
+        <div class="drum drum6" data-key="6">6</div>
+        <div class="drum drum7" data-key="7">7</div>
+        <div class="drum drum8" data-key="8">8</div>
+        <div class="drum drum9" data-key="9">9</div>
+    </div>
+
+    <script>
+        const drums = document.querySelectorAll('.drum');
+        
+        const sounds = {
+            1: 'https://www.soundjay.com/drum/sounds/kick-bass-drum-1.mp3',
+            2: 'https://www.soundjay.com/drum/sounds/snare-drum-1.mp3',
+            3: 'https://www.soundjay.com/drum/sounds/tom-drum-1.mp3',
+            4: 'https://www.soundjay.com/drum/sounds/tom-drum-2.mp3',
+            5: 'https://www.soundjay.com/drum/sounds/tom-drum-3.mp3',
+            6: 'https://www.soundjay.com/drum/sounds/crash-cymbal-1.mp3',
+            7: 'https://www.soundjay.com/drum/sounds/hi-hat-closed-1.mp3',
+            8: 'https://www.soundjay.com/drum/sounds/hi-hat-open-1.mp3',
+            9: 'https://www.soundjay.com/drum/sounds/cowbell-1.mp3'
+        };
+
+        drums.forEach(drum => {
+            drum.addEventListener('click', playSound);
+            drum.addEventListener('touchstart', playSound);
+        });
+
+        function playSound(e) {
+            const key = e.target.dataset.key;
+            const audio = new Audio(sounds[key]);
+            audio.play();
+            e.target.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                e.target.style.transform = 'scale(1)';
+            }, 100);
+        }
+    </script>
+</body>
+</html>
